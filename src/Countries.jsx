@@ -2,31 +2,40 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Countries = () => {
- 
- const [countries,setCountries] =useState ([]);
+  const [countries, setCountries] = useState([]);
 
- useEffect(() => {
-  axios
-  .get("https://xcountries-backend.azurewebsites.net/all")
-  .then((res)=>{
-    setCountries(res.data);
-  })
-  .catch((err)=>{
-    console.error("error Fetching the Data",err);
-  })
- } , [])
+  useEffect(() => {
+    axios
+      .get("https://xcountries-backend.azurewebsites.net/all")
+      .then((res) => {
+        console.log("Fetched Data:", res.data); // ✅ Check API response
+        setCountries(res.data); 
+      })
+      .catch((err) => {
+        console.error("Error Fetching Data:", err);
+      });
+  }, []);
 
-return (
-  <div style={styles.container}>
-    {countries.map((country,index)=>(
-        <CountryCard key={index} name={country.name} flag={country.flag}/>
-    ))}
-  </div>
-)
+  return (
+    <div style={styles.container}>
+      {countries.map((country, index) => (
+        <CountryCard key={index} name={country.name} flag={country.flag} />
+      ))}
+    </div>
+  );
+};
 
-}
+// ✅ Define CountryCard Component
+const CountryCard = ({ name, flag }) => {
+  return (
+    <div style={styles.card}>
+      <img src={flag} alt={`Flag of ${name}`} style={styles.flag} />
+      <h3 style={styles.name}>{name}</h3>
+    </div>
+  );
+};
 
-
+// ✅ Styling Object
 const styles = {
   container: {
     display: "flex",
