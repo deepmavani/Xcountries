@@ -8,11 +8,11 @@ const Countries = () => {
     axios
       .get("https://xcountries-backend.azurewebsites.net/all")
       .then((res) => {
-        console.log("Fetched Data:", res.data); // ✅ Check API response
+        console.log("Fetched Data:", res.data); 
         setCountries(res.data); 
       })
       .catch((err) => {
-        console.error("Error Fetching Data:", err);
+        console.error("Error fetching Data:", err);
       });
   }, []);
 
@@ -25,7 +25,6 @@ const Countries = () => {
   );
 };
 
-// ✅ Define CountryCard Component
 const CountryCard = ({ name, flag }) => {
   return (
     <div style={styles.card}>
